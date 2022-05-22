@@ -1,0 +1,6 @@
+{
+	"method": "POST",
+	"url": "https://test.example",
+	"headers": "User-Agent: test\nCookie: test_sessionid=1234567890\nX-Test: 1",
+	"body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>{PAYLOAD}<data><field>1</field><field>2</field></data>"
+}
