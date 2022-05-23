@@ -2,6 +2,7 @@
 
 
 import sys
+from time import sleep
 from os.path import isdir
 from threading import Thread
 from argparse import ArgumentParser
@@ -26,6 +27,7 @@ def parse_args():
 	parser.add_argument('-w', '--wordlist', help='Wordlist containing a list of files to retrieve')
 	parser.add_argument('-r', '--requestfile', help='Use JSON request file for automatic mode (to automatically trigger the request to vulnerable server)')
 	parser.add_argument('-b', '--base64', help='Convert exfiltrated content from Base64', action='store_const', const=True)
+	parser.add_argument('-d', '--delay', help='Delay in seconds between files exfiltrated in wordlist mode (to avoid DoS)', type=float)
 
 	return parser.parse_args()
 
@@ -134,6 +136,11 @@ def main():
 
 				if args.firsttime:
 					args.firsttime = False
+
+				if args.delay is not None:
+					if i < len(files)-1:
+						print('[*] Sleeping for {:.2f} seconds before exfiltrating next file'.format(args.delay))
+						sleep(args.delay)
 
 				print('')
 

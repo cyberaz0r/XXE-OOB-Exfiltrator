@@ -24,7 +24,7 @@ To run in automatic mode you need a JSON requestfile that will be parsed by the 
 ### Help
 ```
 usage: xxeoob.py [-h] -s SERVER [-f FILE] [-fp FTP_PORT] [-hp HTTP_PORT]
-                 [-o OUTFILE] [-w WORDLIST] [-r REQUESTFILE] [-b]
+                 [-o OUTFILE] [-w WORDLIST] [-r REQUESTFILE] [-b] [-d DELAY]
 
 XXE OOB file content exfiltrator via self-hosted HTTP and FTP servers
 
@@ -47,6 +47,9 @@ optional arguments:
                         automatically trigger the request to vulnerable
                         server)
   -b, --base64          Convert exfiltrated content from Base64
+  -d DELAY, --delay DELAY
+                        Delay in seconds between files exfiltrated in wordlist
+                        mode (to avoid DoS)
 ```
 
 ### Examples

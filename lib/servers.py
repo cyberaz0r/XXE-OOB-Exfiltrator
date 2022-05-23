@@ -68,7 +68,7 @@ def ftp_server(addr, port):
 
 			try:
 				conn.sendall('230 more data please\r\n'.encode())
-			except (BrokenPipeError, ConnectionResetError):
+			except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
 				raise socket.timeout
 
 			# parse every FTP command the vulnerable server is sending
