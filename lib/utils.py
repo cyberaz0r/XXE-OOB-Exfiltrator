@@ -47,10 +47,10 @@ def parse_requestfile(reqfile, payload):
 
 
 # function for asynchronously fire an HTTP request (called using Thread class) without waiting for response
-def async_request(reqdata):
+def async_request(reqdata, proxy):
 	requests.packages.urllib3.disable_warnings(requests.packages.urllib3.exceptions.InsecureRequestWarning)
 	try:
-		requests.request(reqdata['method'], reqdata['url'], headers=reqdata['headers'], data=reqdata['body'], verify=False, timeout=0.00000001)
+		requests.request(reqdata['method'], reqdata['url'], headers=reqdata['headers'], data=reqdata['body'], verify=False, proxies=proxy, timeout=0.1)
 	except:
 		return
 
